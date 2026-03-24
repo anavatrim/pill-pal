@@ -14,7 +14,7 @@ function loadMeds(): Medication[] {
 }
 
 /** Load today's statuses. Resets every new day so meds repeat daily. */
-function loadTodayStatus(): Record<string, { status: MedicationStatus; snoozedUntil?: number }> {
+function loadTodayStatus(): Record<string, any> {
   try {
     const data = JSON.parse(localStorage.getItem(STATUS_KEY) || "{}");
     if (data._date === new Date().toDateString()) return data;
