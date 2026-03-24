@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useMedications } from "@/hooks/useMedications";
 import { useAlarm } from "@/hooks/useAlarm";
-import MedicationTable from "@/components/MedicationTable";
+import WelcomeScreen from "@/components/WelcomeScreen";
+import MedicationCards from "@/components/MedicationCards";
 import MedicationForm from "@/components/MedicationForm";
 import AlarmAlert from "@/components/AlarmAlert";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,10 @@ import { Plus, Pill } from "lucide-react";
 import { Medication } from "@/types/medication";
 
 export default function Index() {
+  const [userName, setUserName] = useState<string | null>(
+    () => localStorage.getItem("user_name")
+  );
+
   const {
     medications,
     addMedication,
@@ -22,6 +27,11 @@ export default function Index() {
   const { alertMed, dismissAlert, stopAlarm } = useAlarm(medications, markAsLate);
   const [showForm, setShowForm] = useState(false);
   const [editingMed, setEditingMed] = useState<Medication | null>(null);
+
+  // Show welcome screen if no name saved
+  if (!userName) {
+    return <WelcomeScreen onComplete={setUserName} />;
+  }
 
   const handleTaken = (id: string) => {
     markAsTaken(id);
@@ -53,27 +63,30 @@ export default function Index() {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="bg-primary text-primary-foreground px-5 pt-10 pb-6 rounded-b-3xl shadow-lg">
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-lg mx-auto">
           <div className="flex items-center gap-3 mb-1">
-            <Pill className="w-8 h-8" />
-            <h1 className="text-2xl font-extrabold">Meus Remédios</h1>
+            <Pill className="w-7 h-7" />
+            <span className="text-base font-semibold opacity-80">Meus Remédios</span>
           </div>
-          <p className="text-base opacity-90 capitalize">{today}</p>
-          <div className="flex items-center gap-4 mt-3">
-            {medications.length > 0 && (
+          <h1 className="text-2xl font-extrabold">Olá, {userName} 👋</h1>
+          <p className="text-base opacity-80 capitalize mt-1">{today}</p>
+          {medications.length > 0 && (
+            <div className="mt-3 flex items-center gap-3">
               <span className="bg-primary-foreground/15 rounded-xl px-4 py-2 text-lg font-bold">
                 {takenCount}/{medications.length} tomados
               </span>
-            )}
-            <span className="text-sm opacity-75">Cadastre uma vez, avisa todo dia ✓</span>
-          </div>
+              {takenCount === medications.length && medications.length > 0 && (
+                <span className="text-base font-semibold">Tudo em dia! 🎉</span>
+              )}
+            </div>
+          )}
         </div>
       </header>
 
       {/* Content */}
-      <main className="max-w-2xl mx-auto px-4 py-6 pb-28">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-bold">Medicamentos do dia</h2>
+      <main className="max-w-lg mx-auto px-4 py-6 pb-28">
+        <div className="flex items-center justify-between mb-5">
+          <h2 className="text-xl font-bold text-foreground">Medicamentos do dia</h2>
           <Button
             size="lg"
             onClick={() => {
@@ -86,7 +99,7 @@ export default function Index() {
           </Button>
         </div>
 
-        <MedicationTable
+        <MedicationCards
           medications={medications}
           onEdit={(med) => {
             setEditingMed(med);
