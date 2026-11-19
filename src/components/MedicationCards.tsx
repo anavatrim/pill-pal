@@ -42,12 +42,12 @@ const statusConfig = {
 export default function MedicationCards({ medications, onEdit, onDelete, onMarkTaken }: Props) {
   if (medications.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-20 text-muted-foreground">
-        <div className="w-20 h-20 rounded-full bg-muted flex items-center justify-center mb-5">
-          <Clock className="w-10 h-10 opacity-40" />
+      <div className="flex flex-col items-center justify-center py-14 sm:py-20 text-muted-foreground">
+        <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-muted flex items-center justify-center mb-5">
+          <Clock className="w-8 h-8 sm:w-10 sm:h-10 opacity-40" />
         </div>
-        <p className="text-xl font-bold">Nenhum medicamento</p>
-        <p className="text-base mt-2">Adicione seus remédios e será avisado todo dia</p>
+        <p className="text-lg sm:text-xl font-bold">Nenhum medicamento</p>
+        <p className="text-sm sm:text-base mt-2">Adicione seus remédios e será avisado todo dia</p>
       </div>
     );
   }
@@ -61,12 +61,12 @@ export default function MedicationCards({ medications, onEdit, onDelete, onMarkT
         return (
           <div
             key={med.id}
-            className={`rounded-2xl border-2 ${cfg.cardBorder} ${cfg.cardBg} bg-card p-5 shadow-sm transition-all`}
+            className={`rounded-2xl border-2 ${cfg.cardBorder} ${cfg.cardBg} bg-card p-4 sm:p-5 shadow-sm transition-all`}
           >
             {/* Top row: time + status */}
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-3xl font-extrabold text-foreground">{med.time}</span>
-              <span className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-bold ${cfg.badgeBg} ${cfg.badgeText}`}>
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-3">
+              <span className="text-2xl sm:text-3xl font-extrabold text-foreground">{med.time}</span>
+              <span className={`inline-flex flex-col gap-2 sm:flex-row sm:items-center px-3 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-bold ${cfg.badgeBg} ${cfg.badgeText}`}>
                 <Icon className="w-4 h-4" />
                 {cfg.label}
               </span>
@@ -74,28 +74,28 @@ export default function MedicationCards({ medications, onEdit, onDelete, onMarkT
 
             {/* Med info */}
             <div className="mb-4">
-              <p className="text-xl font-bold text-foreground">{med.name}</p>
-              <p className="text-lg text-muted-foreground">{med.dose}</p>
+              <p className="text-lg sm:text-xl font-bold text-foreground">{med.name}</p>
+              <p className="text-base sm:text-lg text-muted-foreground">{med.dose}</p>
             </div>
 
             {/* Actions */}
-            <div className="flex items-center gap-2">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
               {med.status === "pending" && (
-                <Button variant="taken" size="lg" onClick={() => onMarkTaken(med.id)} className="flex-1">
+                <Button variant="taken" size="lg" onClick={() => onMarkTaken(med.id)} className="w-full sm:flex-1">
                   <Check className="w-5 h-5 mr-2" />
                   Tomei
                 </Button>
               )}
               {med.status === "late" && (
-                <Button variant="taken" size="lg" onClick={() => onMarkTaken(med.id)} className="flex-1">
+                <Button variant="taken" size="lg" onClick={() => onMarkTaken(med.id)} className="w-full sm:flex-1">
                   <Check className="w-5 h-5 mr-2" />
                   Tomar agora
                 </Button>
               )}
-              <Button variant="outline" size="icon" onClick={() => onEdit(med)} aria-label="Editar" className="h-12 w-12">
+              <Button variant="outline" size="icon" onClick={() => onEdit(med)} aria-label="Editar" className="h-10 w-10 sm:h-12 sm:w-12">
                 <Pencil className="w-5 h-5" />
               </Button>
-              <Button variant="outline" size="icon" onClick={() => onDelete(med.id)} aria-label="Excluir" className="h-12 w-12">
+              <Button variant="outline" size="icon" onClick={() => onDelete(med.id)} aria-label="Excluir" className="h-10 w-10 sm:h-12 sm:w-12">
                 <Trash2 className="w-5 h-5 text-destructive" />
               </Button>
             </div>
@@ -105,3 +105,5 @@ export default function MedicationCards({ medications, onEdit, onDelete, onMarkT
     </div>
   );
 }
+
+

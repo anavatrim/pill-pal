@@ -62,21 +62,21 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="bg-primary text-primary-foreground px-5 pt-10 pb-6 rounded-b-3xl shadow-lg">
+      <header className="bg-primary text-primary-foreground px-4 pt-8 pb-5 sm:px-5 sm:pt-10 sm:pb-6 rounded-b-3xl shadow-lg">
         <div className="max-w-lg mx-auto">
-          <div className="flex items-center gap-3 mb-1">
-            <Pill className="w-7 h-7" />
-            <span className="text-base font-semibold opacity-80">Meus Remédios</span>
+          <div className="flex items-center gap-2 sm:gap-3 mb-1">
+            <Pill className="w-6 h-6 sm:w-7 sm:h-7" />
+            <span className="text-sm sm:text-base font-semibold opacity-80">Meus Remédios</span>
           </div>
-          <h1 className="text-2xl font-extrabold">Olá, {userName} 👋</h1>
-          <p className="text-base opacity-80 capitalize mt-1">{today}</p>
+          <h1 className="text-xl sm:text-2xl font-extrabold">Olá, {userName} 👋</h1>
+          <p className="text-sm sm:text-base opacity-80 capitalize mt-1">{today}</p>
           {medications.length > 0 && (
-            <div className="mt-3 flex items-center gap-3">
-              <span className="bg-primary-foreground/15 rounded-xl px-4 py-2 text-lg font-bold">
+            <div className="mt-3 flex flex-wrap items-center gap-2 sm:gap-3">
+              <span className="bg-primary-foreground/15 rounded-xl px-3 py-1.5 sm:px-4 sm:py-2 text-base sm:text-lg font-bold">
                 {takenCount}/{medications.length} tomados
               </span>
               {takenCount === medications.length && medications.length > 0 && (
-                <span className="text-base font-semibold">Tudo em dia! 🎉</span>
+                <span className="text-sm sm:text-base font-semibold">Tudo em dia! 🎉</span>
               )}
             </div>
           )}
@@ -85,10 +85,11 @@ export default function Index() {
 
       {/* Content */}
       <main className="max-w-lg mx-auto px-4 py-6 pb-28">
-        <div className="flex items-center justify-between mb-5">
-          <h2 className="text-xl font-bold text-foreground">Medicamentos do dia</h2>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-5">
+          <h2 className="text-lg sm:text-xl font-bold text-foreground">Medicamentos do dia</h2>
           <Button
             size="lg"
+            className="w-full sm:w-auto"
             onClick={() => {
               setEditingMed(null);
               setShowForm(true);
@@ -134,3 +135,5 @@ export default function Index() {
     </div>
   );
 }
+
+

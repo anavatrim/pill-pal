@@ -29,10 +29,10 @@ const statusConfig = {
 export default function MedicationList({ medications, onEdit, onDelete }: Props) {
   if (medications.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-16 text-muted-foreground">
-        <Clock className="w-16 h-16 mb-4 opacity-40" />
-        <p className="text-xl font-semibold">Nenhum medicamento cadastrado</p>
-        <p className="text-base mt-1">Toque em "Adicionar" para começar</p>
+      <div className="flex flex-col items-center justify-center py-12 sm:py-16 text-muted-foreground">
+        <Clock className="w-12 h-12 sm:w-16 sm:h-16 mb-4 opacity-40" />
+        <p className="text-lg sm:text-xl font-semibold">Nenhum medicamento cadastrado</p>
+        <p className="text-sm sm:text-base mt-1">Toque em "Adicionar" para começar</p>
       </div>
     );
   }
@@ -45,17 +45,17 @@ export default function MedicationList({ medications, onEdit, onDelete }: Props)
         return (
           <div
             key={med.id}
-            className={`flex items-center gap-4 p-4 rounded-xl border-2 bg-card shadow-sm transition-all ${cfg.className}`}
+            className={`flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl border-2 bg-card shadow-sm transition-all ${cfg.className}`}
           >
             <div className="flex flex-col items-center min-w-[60px]">
-              <span className="text-2xl font-bold leading-none">{med.time}</span>
+              <span className="text-xl sm:text-2xl font-bold leading-none">{med.time}</span>
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-lg font-bold truncate">{med.name}</p>
-              <p className="text-base text-muted-foreground">{med.dose}</p>
+              <p className="text-base sm:text-lg font-bold truncate">{med.name}</p>
+              <p className="text-sm sm:text-base text-muted-foreground">{med.dose}</p>
             </div>
-            <div className="flex items-center gap-1">
-              <span className="flex items-center gap-1 text-sm font-semibold px-2 py-1 rounded-lg">
+            <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-start">
+              <span className="flex items-center gap-1 text-xs sm:text-sm font-semibold px-2 py-1 rounded-lg">
                 <Icon className="w-5 h-5" />
                 <span className="hidden sm:inline">{cfg.label}</span>
               </span>
@@ -72,3 +72,5 @@ export default function MedicationList({ medications, onEdit, onDelete }: Props)
     </div>
   );
 }
+
+
